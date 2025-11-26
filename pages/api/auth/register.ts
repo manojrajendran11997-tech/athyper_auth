@@ -22,6 +22,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const emailLC = email.toLowerCase().trim();
 
+    // ⭐ ADDED: confirm email dynamically
+    console.log("📩 Register request for:", emailLC); 
+
     // existing user?
     const existing = await User.findOne({ email: emailLC });
     if (existing) {
@@ -44,8 +47,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // magic link
     const link = `${process.env.APP_URL}/magic?token=${token}`;
 
-    // send email
-    await sendMagicLinkEmail(emailLC, link);
+    // send email to **different email ID every time**
+    await sendMagicLinkEmail(emailLC, link); // ⬅ works dynamically
 
     return res.status(200).json({ ok: true, message: "Magic link sent." });
 
