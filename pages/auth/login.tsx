@@ -21,10 +21,7 @@ export default function LoginPage() {
 
     const j = await r.json();
 
-    if (!r.ok) {
-      setMsg(j.message || "Invalid email or password");
-      return;
-    }
+    if (!r.ok) return setMsg(j.message || "Invalid credentials ❌");
 
     localStorage.setItem("access-token", j.access);
     localStorage.setItem("refresh-token", j.refresh);
@@ -32,14 +29,20 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800">
+    <div className="min-h-screen w-full flex items-center justify-center 
+      bg-gradient-to-br from-black via-gray-900 to-gray-800">
 
-      {/* Card */}
-      <div className="w-full max-w-md p-10 rounded-2xl shadow-2xl bg-black/30 backdrop-blur-xl border border-gray-800 animate-fadeIn">
+      <div className="w-full max-w-md p-10 rounded-2xl shadow-2xl bg-black/30 
+        backdrop-blur-xl border border-gray-800 animate-fadeIn text-center">
 
-        <h1 className="text-3xl font-semibold text-white mb-6 text-center">
-          Welcome Back
-        </h1>
+        {/* 🔥 HIGH RES LOGO (4K/8K scalable) */}
+        <img 
+          src="/atlas-logo.svg" 
+          alt="Atlas Logo"
+          className="w-52 mx-auto mb-6 drop-shadow-lg"
+        />
+
+        <h1 className="text-3xl font-semibold text-white mb-6">Welcome Back</h1>
 
         <form onSubmit={submit} className="space-y-5">
 
@@ -49,8 +52,7 @@ export default function LoginPage() {
             <input
               type="email"
               className="w-full mt-1 px-4 py-3 rounded-xl bg-white/10 text-white 
-                         border border-gray-700 focus:border-gray-400 outline-none
-                         placeholder-gray-400 transition"
+              border border-gray-700 focus:border-gray-400 outline-none placeholder-gray-400"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -63,36 +65,33 @@ export default function LoginPage() {
             <input
               type="password"
               className="w-full mt-1 px-4 py-3 rounded-xl bg-white/10 text-white 
-                         border border-gray-700 focus:border-gray-400 outline-none
-                         placeholder-gray-400 transition"
+              border border-gray-700 focus:border-gray-400 outline-none placeholder-gray-400"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          {/* Forgot */}
-          <p
-            className="text-sm text-gray-400 hover:text-white cursor-pointer text-right"
+          {/* Forgot Password */}
+          <p 
             onClick={() => router.push("/auth/forgot-password")}
+            className="text-sm text-gray-400 hover:text-white cursor-pointer text-right"
           >
             Forgot password?
           </p>
 
-          {/* Button */}
-          <button
-            className="w-full py-3 rounded-xl bg-white text-black font-semibold
-                       hover:bg-gray-200 transition shadow-lg"
-          >
+          {/* Login Button */}
+          <button className="w-full py-3 rounded-xl bg-white text-black font-semibold 
+            hover:bg-gray-200 transition shadow-xl">
             Login
           </button>
 
           {msg && <p className="text-sm text-gray-400">{msg}</p>}
 
-          {/* Register */}
+          {/* Create Account */}
           <p className="text-center text-sm text-gray-400 mt-4">
             Don't have an account?{" "}
-            <span
+            <span 
               className="text-white cursor-pointer hover:underline"
               onClick={() => router.push("/auth/register")}
             >
